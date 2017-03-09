@@ -8,6 +8,7 @@ public class ForceMouseMove : MonoBehaviour
 	public Text textSet;
 	public Text text;
 
+	//Hmmmmm, I'm not sure why I didnt just ForceSetMouse.MoveMouse on a KeyDown instead of this whole timer thing... silly me =)
 	int setEveryAmountOfFrames = 50;
 	int current;
 	bool isForward = true;
