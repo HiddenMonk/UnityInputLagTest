@@ -9,6 +9,7 @@ using System.Linq;
 public class MouseDetect : MonoBehaviour
 {
 	public Text text;
+	public Text firstDetectedFrameText;
 	public InputField fontSizeInput;
 	public InputField maxQueueInput;
 	public Button togglePauseButton;
@@ -23,7 +24,7 @@ public class MouseDetect : MonoBehaviour
 
 	void Awake()
 	{
-		SetQueue();
+		ClearText();
 
 		fontSizeInput.onEndEdit.AddListener(delegate{SetFontSize(fontSizeInput);});
 		maxQueueInput.onEndEdit.AddListener(delegate{SetMaxQueue(fontSizeInput);});
@@ -55,7 +56,14 @@ public class MouseDetect : MonoBehaviour
 
 	void EnqueueFrame()
 	{
-		framesDetectedQueue.Enqueue(Time.frameCount.ToString());
+		string detectedFrame = Time.frameCount.ToString();
+		framesDetectedQueue.Enqueue(detectedFrame);
+
+		if(firstDetectedFrameText.text == string.Empty)
+		{
+			firstDetectedFrameText.text = "First Detected Frame = " + detectedFrame;
+		}
+
 		framesDetectedQueue.Dequeue();
 	}
 
@@ -88,6 +96,7 @@ public class MouseDetect : MonoBehaviour
 	void ClearText()
 	{
 		text.text = string.Empty;
+		firstDetectedFrameText.text = string.Empty;
 		framesDetectedQueue.Clear();
 		SetQueue();
 	}
