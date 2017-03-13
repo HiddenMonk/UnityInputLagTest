@@ -19,7 +19,8 @@ public class Frame : MonoBehaviour
 
 	void Update()
 	{
-		text.text = Time.frameCount.ToString();
+		//We add 1 since when we see the text on the screen, we would be on the next frame.
+		text.text = (Time.frameCount + 1).ToString();
 		
 		if(changeColors)
 		{
