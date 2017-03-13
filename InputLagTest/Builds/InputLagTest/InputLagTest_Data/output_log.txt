@@ -14,20 +14,20 @@ Platform assembly: C:\Users\Monktiger\Documents\Unity Projects\InputLagTest\Buil
 Loading C:\Users\Monktiger\Documents\Unity Projects\InputLagTest\Builds\InputLagTest\InputLagTest_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
 Platform assembly: C:\Users\Monktiger\Documents\Unity Projects\InputLagTest\Builds\InputLagTest\InputLagTest_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
 Loading C:\Users\Monktiger\Documents\Unity Projects\InputLagTest\Builds\InputLagTest\InputLagTest_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
-- Completed reload, in  0.265 seconds
+- Completed reload, in  0.077 seconds
 Platform assembly: C:\Users\Monktiger\Documents\Unity Projects\InputLagTest\Builds\InputLagTest\InputLagTest_Data\Managed\System.Core.dll (this message is harmless)
 Platform assembly: C:\Users\Monktiger\Documents\Unity Projects\InputLagTest\Builds\InputLagTest\InputLagTest_Data\Managed\System.dll (this message is harmless)
 desktop: 1600x900 60Hz; virtual: 1600x900 at 0,0
 <RI> Initializing input.
 <RI> Input initialized.
 <RI> Initialized touch support.
-UnloadTime: 1.369305 ms
+UnloadTime: 1.361326 ms
 Platform assembly: C:\Users\Monktiger\Documents\Unity Projects\InputLagTest\Builds\InputLagTest\InputLagTest_Data\Managed\System.Xml.dll (this message is harmless)
 Setting up 1 worker threads for Enlighten.
-  Thread -> id: 1b7c -> priority: 1 
+  Thread -> id: 1e80 -> priority: 1 
 Unloading 5 Unused Serialized files (Serialized files now loaded: 0)
-UnloadTime: 2.512545 ms
+UnloadTime: 2.492788 ms
 
-Unloading 10 unused Assets to reduce memory usage. Loaded Objects now: 658.
-Total: 1.251143 ms (FindLiveObjects: 0.086626 ms CreateObjectMapping: 0.035714 ms MarkObjects: 1.100307 ms  DeleteObjects: 0.027735 ms)
+Unloading 10 unused Assets to reduce memory usage. Loaded Objects now: 671.
+Total: 1.286098 ms (FindLiveObjects: 0.090045 ms CreateObjectMapping: 0.036094 ms MarkObjects: 1.129182 ms  DeleteObjects: 0.029635 ms)
 

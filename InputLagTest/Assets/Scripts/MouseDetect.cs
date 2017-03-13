@@ -10,19 +10,23 @@ public class MouseDetect : MonoBehaviour
 {
 	public Text text;
 	public InputField fontSizeInput;
+	public InputField maxQueueInput;
 	public Button togglePauseButton;
 	public Button clearButton;
 
 	Queue<string> framesDetectedQueue = new Queue<string>();
-	int maxQueue = 20;
+	public int maxQueue = 20;
 
 	bool isPaused;
+
+	string textDivider = " - ";
 
 	void Awake()
 	{
 		SetQueue();
 
 		fontSizeInput.onEndEdit.AddListener(delegate{SetFontSize(fontSizeInput);});
+		maxQueueInput.onEndEdit.AddListener(delegate{SetMaxQueue(fontSizeInput);});
 		togglePauseButton.onClick.AddListener(TogglePauseDetection);
 		clearButton.onClick.AddListener(ClearText);
 	}
@@ -58,9 +62,13 @@ public class MouseDetect : MonoBehaviour
 	void DisplayText()
 	{
 		StringBuilder builder = new StringBuilder();
+		int line = 1;
 		foreach(string frameText in framesDetectedQueue.Reverse())
 		{
+			builder.Append(line);
+			builder.Append(textDivider);
 			builder.AppendLine(frameText);
+			line++;
 		}
 
 		text.text = builder.ToString();
@@ -69,6 +77,12 @@ public class MouseDetect : MonoBehaviour
 	void SetFontSize(InputField input)
 	{
 		text.fontSize = Convert.ToInt32(fontSizeInput.text);
+	}
+
+	void SetMaxQueue(InputField input)
+	{
+		maxQueue = Convert.ToInt32(maxQueueInput.text);
+		ClearText();
 	}
 
 	void ClearText()
