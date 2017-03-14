@@ -11,10 +11,15 @@ public class Frame : MonoBehaviour
 
 	int currentColorIndex;
 
+	public static Color currentFrameColor {get; private set;}
+	public static int currentFrameColorIndex {get; private set;}
+	public static Color[] frameColors {get; private set;}
+
 	void Awake()
 	{
 		if(text == null) text = GetComponent<Text>();
 		defaultColor = text.color;
+		frameColors = colors;
 	}
 
 	void Update()
@@ -24,7 +29,9 @@ public class Frame : MonoBehaviour
 		
 		if(changeColors)
 		{
-			text.color = colors[currentColorIndex];
+			currentFrameColor = colors[currentColorIndex];
+			currentFrameColorIndex = currentColorIndex;
+			text.color = currentFrameColor;
 
 			currentColorIndex++;
 			if(currentColorIndex >= colors.Length) currentColorIndex = 0;
