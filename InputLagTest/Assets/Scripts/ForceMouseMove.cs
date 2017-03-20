@@ -7,6 +7,15 @@ public class ForceMouseMove : MonoBehaviour
 	public Text textSet;
 	public Text textMP;
 	public Text text;
+	public Text textPress;
+	public InputField moveMouseAmount;
+
+	public bool autoMove;
+	public float seconds = 1f;
+
+	public int mouseSetAmount = 1;
+
+	float currentTime;
 
 	bool isForward = true;
 	Vector3 pos;
@@ -21,12 +30,40 @@ public class ForceMouseMove : MonoBehaviour
 
 	void Update()
 	{
-		if(Input.GetKeyDown(KeyCode.Space))
+		if(autoMove)
+		{
+			AutoMove();
+		}
+		else if(Input.GetKeyDown(KeyCode.Space))
+		{
+			MoveMouseLoop();
+		}
+
+		DetectMouse();
+	}
+
+	public void EnableAutoMove(bool value)
+	{
+		autoMove = value;
+	}
+
+	void AutoMove()
+	{
+		currentTime += Time.deltaTime;
+		if(currentTime > seconds)
+		{
+			MoveMouseLoop();
+			currentTime = 0;
+		}
+	}
+
+	void MoveMouseLoop()
+	{
+		for(int i = 0; i < mouseSetAmount; i++)
 		{
 			MoveMouse();
 		}
-		
-		DetectMouse();
+		PressMouseLeft();
 	}
 
 	void MoveMouse()
@@ -45,6 +82,16 @@ public class ForceMouseMove : MonoBehaviour
 		}
 	}
 
+	void PressMouseLeft()
+	{
+		if(isForward)
+		{
+			ForceSetMouse.PressMouseLeft((int)forward.x, (int)forward.y, absolute);
+		}else{
+			ForceSetMouse.PressMouseLeft((int)-forward.x, (int)-forward.y, absolute);
+		}
+	}
+
 	void DetectMouse()
 	{
 		if(Input.mousePosition != pos)
@@ -56,6 +103,21 @@ public class ForceMouseMove : MonoBehaviour
 		{
 			text.text = "Frame " + Time.frameCount + " Moved Axis " + Input.GetAxisRaw("Mouse X");
 		}
-		//if(Input.GetKeyDown(KeyCode.Mouse0)) Debug.Log(Time.frameCount + " Pressed");
+		if(Input.GetKeyDown(KeyCode.Mouse0))
+		{
+			textPress.text = "Frame " + Time.frameCount + " Pressed Left Mouse";
+		}
+	}
+
+	public void SetMoveMouseAmount(string value)
+	{
+		int amount = 0;
+		if(int.TryParse(value, out amount))
+		{
+			if(amount <= 0) amount = 1;
+			else if(amount % 2 == 0) amount += 1;
+			mouseSetAmount = amount;
+			moveMouseAmount.text = amount.ToString();
+		}
 	}
 }

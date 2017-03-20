@@ -23,31 +23,56 @@ public class ForceSetMouse
                CallingConvention = CallingConvention.Winapi)]
     internal static extern int InternalGetSystemMetrics(int value);
 
+
 	public static void MoveMouse(int to_x, int to_y, bool absolute)
 	{
-		int screenWidth = InternalGetSystemMetrics(0);
-		int screenHeight = InternalGetSystemMetrics(1);
-
 		int mouseEvent = 0x0001;
-		int mic_x = to_x;
-		int mic_y = to_y;
-		if(absolute)
-		{
-			// Mickey X coordinate
-			mic_x = (int)System.Math.Round(to_x * 65536.0 / screenWidth);
-			// Mickey Y coordinate
-			mic_y = (int)System.Math.Round(to_y * 65536.0 / screenHeight);
-
-			mouseEvent |= 0x8000;
-		}
-
+		if(absolute) mouseEvent |= 0x8000;
+		
+		Mickey mickey = GetMickeys(to_x, to_y, absolute);
+		
 		// 0x0001 | 0x8000: Move + Absolute position
-		Mouse_Event(mouseEvent, mic_x, mic_y, 0, 0);
+		Mouse_Event(mouseEvent, mickey.x, mickey.y, 0, 0);
+	}
+
+	public static void PressMouseLeft(int to_x, int to_y, bool absolute)
+	{
+		Mickey mickey = GetMickeys(to_x, to_y, absolute);
 
 		// 0x0002: Left button down
-		//Mouse_Event(0x0002, mic_x, mic_y, 0, 0);
+		Mouse_Event(0x0002 | 0x8000, mickey.x, mickey.y, 0, 0);
 
 		// 0x0004: Left button up
-		//Mouse_Event(0x0004, mic_x, mic_y, 0, 0);
+		Mouse_Event(0x0004 | 0x8000, mickey.x, mickey.y, 0, 0);
+	}
+
+	static Mickey GetMickeys(int to_x, int to_y, bool absolute)
+	{
+		Mickey mickey = new Mickey(to_x, to_y);
+
+		if(absolute)
+		{
+			int screenWidth = InternalGetSystemMetrics(0);
+			int screenHeight = InternalGetSystemMetrics(1);
+
+			// Mickey X coordinate
+			mickey.x = (int)System.Math.Round(to_x * 65536.0 / screenWidth);
+			// Mickey Y coordinate
+			mickey.y = (int)System.Math.Round(to_y * 65536.0 / screenHeight);
+		}
+
+		return mickey;
+	}
+
+	struct Mickey
+	{
+		public int x;
+		public int y;
+
+		public Mickey(int x, int y)
+		{
+			this.x = x;
+			this.y = y;
+		}
 	}
 }
